@@ -2,6 +2,7 @@ package com.example.nguyenphucan_ktgk_2202;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,10 +24,25 @@ public class MainActivity2 extends AppCompatActivity {
             return insets;
         });
 
-        TextView txt_2202 = findViewById(R.id.txtback);
-        txt_2202.setOnClickListener(v -> {
-            Intent intent_2202 = new Intent(MainActivity2.this, MainActivity.class);
-            startActivity(intent_2202);
+        TextView txtResult = findViewById(R.id.txtResult);
+        TextView txtBack = findViewById(R.id.btnBack);
+
+        double bmi = getIntent().getDoubleExtra("bmi_value", 0);
+
+        String result;
+        if (bmi<18.5) {
+            result = "Chỉ số BMI của bạn là: " + String.format("%.2f", bmi) + " (Gầy)";
+        } else if (bmi<24.9) {
+            result = "Chỉ số BMI của bạn là: " + String.format("%.2f", bmi) + " (Bình thường)";
+        } else if (bmi<29.9) {
+            result = "Chỉ số BMI của bạn là: " + String.format("%.2f", bmi) + " (Thừa cân)";
+        } else {
+            result = "Chỉ số BMI của bạn là: " + String.format("%.2f", bmi) + " (Béo phì)";
+        }
+        txtResult.setText(result);
+        txtBack.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+            startActivity(intent);
             finish();
         });
     }
